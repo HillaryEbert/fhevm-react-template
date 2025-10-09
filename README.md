@@ -98,8 +98,8 @@ fhevm-universal-sdk/
 │   └── vue-demo/               # Vue 3 integration example
 │
 ├
-├── PROJECT_STRUCTURE.md        # Detailed project structure
-├── SETUP_SUMMARY.md            # Setup and deployment guide
+├
+├
 └── README.md                   # This file
 ```
 
@@ -414,7 +414,7 @@ npm publish
 
 ### Quantum Computing Application
 
-**Live Demo**: [Coming Soon - Vercel/Netlify Deployment]
+**Live Demo**: [https://hillaryebert.github.io/QuantumCompute/]
 
 **Smart Contract**:
 - Network: Sepolia Testnet
@@ -525,20 +525,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-- **GitHub**: [Your GitHub Profile]
-- **Email**: your.email@example.com
-- **Twitter**: @YourTwitterHandle
-- **Discord**: YourDiscord#1234
+- **GitHub**: [https://github.com/HillaryEbert/fhevm-react-template]
 
 ---
 
 ## 🔗 Links
 
-- **Documentation**: [Full Docs Site]
+- **Documentation**: [https://github.com/HillaryEbert/fhevm-react-template]
 - **SDK Package**: [@quantum-privacy/fhevm-sdk on npm]
-- **Live Demo**: [Quantum Computing Platform]
-- **Smart Contract**: [0xF7d1...92e2 on Etherscan]
-- **Video Demos**: [YouTube Playlist]
+- **Live Demo**: [https://hillaryebert.github.io/QuantumCompute/]
+- **Smart Contract**: [0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2 on Etherscan]
+- **Video Demos**: [[demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]]
 
 ---
 
@@ -546,6 +543,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for the FHEVM SDK Competition & Zama Developer Program**
 
-[⭐ Star on GitHub](https://github.com/HillaryEbert/fhevm-react-template) | [📖 Read the Docs](./packages/fhevm-sdk/README.md) | [🎮 Try the Demo](#-deployment)
+[⭐ Star on GitHub](https://github.com/HillaryEbert/fhevm-react-template) | [📖 Read the Docs](./packages/fhevm-sdk/README.md) | [🎮 Try the Demo](https://hillaryebert.github.io/QuantumCompute/)
 
 </div>
