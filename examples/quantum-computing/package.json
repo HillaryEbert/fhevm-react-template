@@ -1,0 +1,75 @@
+{
+  "name": "fhevm-universal-sdk",
+  "version": "1.0.0",
+  "description": "Universal FHEVM SDK for React, Vue, Next.js, and Node.js - Zama Bounty Submission",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "build:sdk": "cd packages/fhevm-sdk && npm install && npm run build",
+    "build:contracts": "npm install && npx hardhat compile",
+    "build:all": "npm run build:sdk && npm run build:contracts",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
+    "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
+    "test:contracts": "npx hardhat run scripts/test.js --network sepolia",
+    "dev:nextjs": "cd examples/nextjs-app && npm install && npm run dev",
+    "build:nextjs": "cd examples/nextjs-app && npm install && npm run build",
+    "start:nextjs": "cd examples/nextjs-app && npm run start",
+    "preview": "npx http-server ./public -p 8080 -c-1 --cors -o",
+    "preview:quantum": "npx http-server ./public -p 8081 -c-1 --cors -o",
+    "start:demo": "npx http-server ./public -p 8080 -c-1 --cors",
+    "deploy:vercel": "vercel",
+    "deploy:vercel:prod": "vercel --prod",
+    "clean": "rm -rf node_modules packages/*/node_modules examples/*/node_modules",
+    "clean:build": "rm -rf packages/fhevm-sdk/dist artifacts cache"
+  },
+  "keywords": [
+    "fhevm",
+    "fhe",
+    "zama",
+    "sdk",
+    "encryption",
+    "privacy",
+    "blockchain",
+    "react",
+    "vue",
+    "nextjs",
+    "wagmi-like",
+    "bounty"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/fhevm-universal-sdk"
+  },
+  "author": "Zama Community Contributor",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.1.0",
+    "@nomicfoundation/hardhat-ethers": "^3.1.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.1.0",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.1.1",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "^4.3.20",
+    "@types/mocha": "^10.0.10",
+    "chai": "^4.5.0",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.19.0",
+    "hardhat-gas-reporter": "^1.0.10",
+    "solidity-coverage": "^0.8.16",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@fhevm/solidity": "^0.8.0",
+    "@zama-fhe/oracle-solidity": "^0.2.0",
+    "ethers": "^6.9.0",
+    "fhevm": "^0.6.2",
+    "fhevmjs": "^0.5.0"
+  }
+}

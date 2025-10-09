@@ -1,0 +1,26 @@
+{
+  "network": "sepolia",
+  "chainId": "11155111",
+  "contractAddress": "0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2",
+  "deployer": "0x75e5b861B0d3b5A80db7bb4D0841ba8228F15889",
+  "deploymentTime": "2025-10-12T01:04:02.591Z",
+  "numPausers": 3,
+  "features": [
+    "Privacy Quantum Computing",
+    "6 Quantum Algorithms (Shor, Grover, VQE, QAOA, QML, Custom)",
+    "Quantum Entanglement",
+    "Circuit Compilation",
+    "New Gateway API",
+    "Direct KMS Event Emission",
+    "Multi-pauser Support",
+    "sIND-CPAD Security"
+  ],
+  "algorithms": [
+    "Shor's Algorithm (factoring)",
+    "Grover's Algorithm (search)",
+    "VQE (Variational Quantum Eigensolver)",
+    "QAOA (Quantum Approximate Optimization)",
+    "Quantum Machine Learning",
+    "Custom Quantum Circuits"
+  ]
+}
