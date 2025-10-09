@@ -97,7 +97,7 @@ fhevm-universal-sdk/
 │   ├── react-demo/             # React 18 + Vite example
 │   └── vue-demo/               # Vue 3 integration example
 │
-├── VIDEO_SCRIPTS.md            # Video demonstration scripts
+├
 ├── PROJECT_STRUCTURE.md        # Detailed project structure
 ├── SETUP_SUMMARY.md            # Setup and deployment guide
 └── README.md                   # This file
@@ -368,7 +368,7 @@ npm install && npm start
 ### Project Documentation
 - **Structure Guide**: [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)
 - **Setup Summary**: [SETUP_SUMMARY.md](./SETUP_SUMMARY.md)
-- **Video Scripts**: [VIDEO_SCRIPTS.md](./VIDEO_SCRIPTS.md)
+
 
 ---
 
@@ -396,9 +396,9 @@ npm install && npm start
 - Privacy features showcase (90 seconds)
 - Use cases and impact (60 seconds)
 
-**Video Link**: [Coming Soon]
+**Video Link**: [demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]
 
-**Full Scripts**: See [VIDEO_SCRIPTS.md](./VIDEO_SCRIPTS.md)
+
 
 ---
 
