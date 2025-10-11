@@ -352,7 +352,7 @@ npm publish
 
 ### Quantum Computing Application
 
-**Live Demo**: [https://hillaryebert.github.io/QuantumCompute/]
+**Live Demo**: [https://quantum-compute.vercel.app/]
 
 **Smart Contract**:
 - Network: Sepolia Testnet
@@ -453,7 +453,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Documentation**: [https://github.com/HillaryEbert/fhevm-react-template]
 - **SDK Package**: [@quantum-privacy/fhevm-sdk on npm]
-- **Live Demo**: [https://hillaryebert.github.io/QuantumCompute/]
+- **Live Demo**: [https://quantum-compute.vercel.app/]
 - **Smart Contract**: [0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2 on Etherscan]
 - **Video Demos**: [[demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]]
 
@@ -463,6 +463,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for the FHEVM SDK Competition & Zama Developer Program**
 
-[⭐ Star on GitHub](https://github.com/HillaryEbert/fhevm-react-template) | [📖 Read the Docs](./packages/fhevm-sdk/README.md) | [🎮 Try the Demo](https://hillaryebert.github.io/QuantumCompute/)
+[⭐ Star on GitHub](https://github.com/HillaryEbert/fhevm-react-template) | [📖 Read the Docs](./packages/fhevm-sdk/README.md) | [🎮 Try the Demo](https://quantum-compute.vercel.app/)
 
 </div>
