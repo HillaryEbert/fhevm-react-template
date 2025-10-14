@@ -1,8 +1,7 @@
-# 🔒 FHEVM Universal SDK & Quantum Privacy Computing
+# 🔒 FHEVM Universal SDK
 
-> **Dual Submission**: This repository is submitted for both the **FHEVM SDK Competition** (focusing on the SDK package) and the **Zama Developer Program** (focusing on the quantum computing application).
+> **Zama FHEVM SDK Competition Submission** - A wagmi-inspired, framework-agnostic SDK
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://reactjs.org/)
 
@@ -16,16 +15,6 @@
 - [Project Overview](#-project-overview)
 - [Repository Structure](#-repository-structure)
 - [SDK Competition Submission](#-sdk-competition-submission)
-- [Developer Program Submission](#-developer-program-submission)
-- [Getting Started](#-getting-started)
-- [Features Comparison](#-features-comparison)
-- [Documentation](#-documentation)
-- [Video Demonstrations](#-video-demonstrations)
-- [Deployment](#-deployment)
-- [Technology Stack](#-technology-stack)
-- [License](#-license)
-
----
 
 ## 🎯 Quick Navigation for Judges
 
@@ -48,7 +37,7 @@
 
 ## 🌟 Project Overview
 
-This monorepo contains two interconnected projects:
+This repository contains a universal FHEVM SDK with multiple framework examples:
 
 ### 1. @quantum-privacy/fhevm-sdk (SDK Competition)
 
@@ -183,45 +172,6 @@ import { createFhevmInstance, encryptValue } from '@quantum-privacy/fhevm-sdk';
 
 ---
 
-## 🏆 Developer Program Submission
-
-### Quantum Privacy Computing Platform
-
-A groundbreaking application that brings **quantum computing to blockchain** with full privacy guarantees using FHEVM.
-
-#### Smart Contract: QuantumPrivacyCompute
-
-**Deployed at**: `0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2` (Sepolia)
-
-**Key Features**:
-
-```solidity
-// Initialize quantum state with encrypted amplitudes
-function initializeQuantumState(
-    uint8[] calldata encryptedAmplitudes,
-    uint8 qubitCount
-) external;
-
-// Submit quantum job with encrypted input
-function submitQuantumJob(
-    uint8 encryptedInput,
-    uint8 algorithmType
-) external returns (uint256 jobId);
-
-// Execute quantum algorithm on encrypted data
-function executeQuantumAlgorithm(uint256 jobId) external;
-
-// Verify quantum computation with ZK proof
-function verifyQuantumProof(
-    uint256 jobId,
-    bytes calldata proof
-) external returns (bool);
-```
-
-#### Supported Quantum Algorithms
-
-| Algorithm | Use Case | Complexity |
-|-----------|----------|------------|
 | **Shor's Algorithm** | Integer factorization, cryptography breaking | O(log³ N) |
 | **Grover's Search** | Unstructured search, database optimization | O(√N) |
 | **VQE** | Molecular simulation, drug discovery | Varies |
@@ -384,18 +334,6 @@ npm install && npm start
 - TypeScript IntelliSense showcase (30 seconds)
 - Live coding demonstration (60 seconds)
 
-**Video Link**: [Coming Soon]
-
-### Developer Program Demo (5-8 minutes)
-**Title**: "Quantum Privacy Computing: Encrypted Quantum Algorithms on Ethereum"
-
-**Highlights**:
-- Application overview (60 seconds)
-- Quantum algorithm demonstrations (2 minutes)
-- Smart contract interaction (90 seconds)
-- Privacy features showcase (90 seconds)
-- Use cases and impact (60 seconds)
-
 **Video Link**: [demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]
 
 
@@ -462,15 +400,6 @@ npm run deploy
 4. **Production Ready**: Comprehensive error handling, loading states, and documentation
 5. **Real-World Usage**: Proven in production with quantum computing application
 
-### For Developer Program
-
-1. **Innovation**: First quantum computing platform with full FHEVM encryption
-2. **Completeness**: 6 different quantum algorithms implemented
-3. **Security**: All computations performed on encrypted data
-4. **Verification**: Zero-knowledge proofs for computation integrity
-5. **Usability**: Clean, intuitive interface accessible to non-technical users
-6. **Impact**: Opens quantum computing to enterprises requiring privacy
-
 ---
 
 ## 📋 Submission Checklist
@@ -484,15 +413,6 @@ npm run deploy
 - [x] Video demonstration (3-5 minutes)
 - [x] Published to npm / GitHub
 
-### Developer Program ✅
-- [x] Smart contract deployed on Sepolia
-- [x] Production-ready frontend application
-- [x] Comprehensive documentation
-- [x] 6 quantum algorithms implemented
-- [x] Full FHEVM integration
-- [x] Live demo deployment
-- [x] Video demonstration (5-8 minutes)
-- [x] GitHub repository with full source
 
 ---
 
