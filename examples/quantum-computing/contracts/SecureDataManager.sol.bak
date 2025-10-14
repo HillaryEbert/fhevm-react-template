@@ -1,0 +1,191 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+import "@fhevm/solidity/lib/FHE.sol";
+import "@fhevm/solidity/gateway/GatewayCaller.sol";
+
+/**
+ * @title SecureDataManager
+ * @notice 演示新网关合约 API 的安全数据管理系统
+ * @dev 使用最新的 fhEVM 网关特性：
+ *      - 用户解密响应的新事件结构
+ *      - is...检查函数代替 check...函数
+ *      - 支持多暂停器地址
+ *      - 交易输入自动重新随机化（提供 sIND-CPAD 安全性）
+ */
+contract SecureDataManager is GatewayCaller {
+    // 加密数据存储
+    struct EncryptedData {
+        euint64 value;
+        address owner;
+        uint256 timestamp;
+        bool exists;
+    }
+
+    mapping(uint256 => EncryptedData) private dataStore;
+    uint256 private dataCounter;
+
+    // 解密请求映射
+    mapping(uint256 => uint256) public decryptionRequests; // requestId => dataId
+
+    // 事件：使用新的网关事件结构
+    event DataStored(uint256 indexed dataId, address indexed owner, uint256 timestamp);
+    event DecryptionRequested(uint256 indexed requestId, uint256 indexed dataId, address indexed requester);
+    event DataDecrypted(uint256 indexed dataId, uint64 decryptedValue, address indexed requester);
+
+    constructor() {
+        dataCounter = 0;
+    }
+
+    /**
+     * @notice 存储加密数据
+     * @param encryptedValue 加密的输入值
+     * @return dataId 存储的数据ID
+     * @dev 输入会自动重新随机化以提供 sIND-CPAD 安全性
+     */
+    function storeEncryptedData(einput encryptedValue, bytes calldata inputProof) external returns (uint256) {
+        euint64 value = FHE.asEuint64(encryptedValue, inputProof);
+
+        dataCounter++;
+        dataStore[dataCounter] = EncryptedData({
+            value: value,
+            owner: msg.sender,
+            timestamp: block.timestamp,
+            exists: true
+        });
+
+        // 授权合约访问加密数据
+        FHE.allowThis(value);
+        FHE.allow(value, msg.sender);
+
+        emit DataStored(dataCounter, msg.sender, block.timestamp);
+
+        return dataCounter;
+    }
+
+    /**
+     * @notice 请求解密数据（使用新的网关 API）
+     * @param dataId 要解密的数据ID
+     * @return requestId 解密请求ID
+     * @dev 使用新的解密响应事件结构
+     */
+    function requestDecryption(uint256 dataId) external returns (uint256) {
+        require(dataStore[dataId].exists, "Data does not exist");
+        require(dataStore[dataId].owner == msg.sender, "Not data owner");
+
+        // 使用新的网关 API 请求解密
+        uint256[] memory cts = new uint256[](1);
+        cts[0] = Gateway.toUint256(dataStore[dataId].value);
+
+        uint256 requestId = Gateway.requestDecryption(
+            cts,
+            this.decryptionCallback.selector,
+            0,
+            block.timestamp + 100,
+            false
+        );
+
+        decryptionRequests[requestId] = dataId;
+
+        emit DecryptionRequested(requestId, dataId, msg.sender);
+
+        return requestId;
+    }
+
+    /**
+     * @notice 解密回调函数
+     * @param requestId 解密请求ID
+     * @param decryptedValue 解密后的值
+     * @dev 由网关调用，接收解密结果
+     */
+    function decryptionCallback(
+        uint256 requestId,
+        uint64 decryptedValue
+    ) public onlyGateway returns (uint64) {
+        uint256 dataId = decryptionRequests[requestId];
+        require(dataStore[dataId].exists, "Invalid data ID");
+
+        emit DataDecrypted(dataId, decryptedValue, dataStore[dataId].owner);
+
+        return decryptedValue;
+    }
+
+    /**
+     * @notice 检查公共解密是否允许（使用新的 is...函数）
+     * @return bool 是否允许公共解密
+     * @dev 使用 isPublicDecryptAllowed 代替已弃用的 checkPublicDecryptAllowed
+     */
+    function checkDecryptionAllowed() external view returns (bool) {
+        // 新的 API：is...函数返回布尔值，不再 revert
+        return Gateway.isPublicDecryptAllowed();
+    }
+
+    /**
+     * @notice 执行加密计算（两个值相加）
+     * @param dataId1 第一个数据ID
+     * @param dataId2 第二个数据ID
+     * @return resultId 结果数据ID
+     * @dev 演示交易输入的自动重新随机化
+     */
+    function computeEncryptedSum(uint256 dataId1, uint256 dataId2) external returns (uint256) {
+        require(dataStore[dataId1].exists && dataStore[dataId2].exists, "Data does not exist");
+        require(
+            dataStore[dataId1].owner == msg.sender && dataStore[dataId2].owner == msg.sender,
+            "Not data owner"
+        );
+
+        // FHE 加法运算（输入自动重新加密）
+        euint64 sum = FHE.add(dataStore[dataId1].value, dataStore[dataId2].value);
+
+        dataCounter++;
+        dataStore[dataCounter] = EncryptedData({
+            value: sum,
+            owner: msg.sender,
+            timestamp: block.timestamp,
+            exists: true
+        });
+
+        FHE.allowThis(sum);
+        FHE.allow(sum, msg.sender);
+
+        emit DataStored(dataCounter, msg.sender, block.timestamp);
+
+        return dataCounter;
+    }
+
+    /**
+     * @notice 获取加密数据（带权限检查）
+     * @param dataId 数据ID
+     * @return value 加密的值（重新加密给调用者）
+     */
+    function getEncryptedData(uint256 dataId) external view returns (euint64) {
+        require(dataStore[dataId].exists, "Data does not exist");
+        require(dataStore[dataId].owner == msg.sender, "Not data owner");
+
+        return dataStore[dataId].value;
+    }
+
+    /**
+     * @notice 获取数据元信息
+     * @param dataId 数据ID
+     * @return owner 所有者地址
+     * @return timestamp 创建时间戳
+     * @return exists 是否存在
+     */
+    function getDataInfo(uint256 dataId) external view returns (
+        address owner,
+        uint256 timestamp,
+        bool exists
+    ) {
+        EncryptedData memory data = dataStore[dataId];
+        return (data.owner, data.timestamp, data.exists);
+    }
+
+    /**
+     * @notice 获取当前数据计数
+     * @return count 总数据数量
+     */
+    function getDataCount() external view returns (uint256) {
+        return dataCounter;
+    }
+}

@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Privacy Computing - Confidential Quantum Applications</title>
+    <meta name="description" content="Privacy-preserving quantum computing platform using Fully Homomorphic Encryption">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .status-bar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-value {
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .quantum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .quantum-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .quantum-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .quantum-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantum-card p {
+            line-height: 1.6;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+            min-width: 120px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
+        .btn-success {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .results-panel {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 100px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-label {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .quantum-state {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .amplitude {
+            background: rgba(255, 215, 0, 0.3);
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .amplitude:focus {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.5);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #FFD700;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 10px;
+            margin: 15px 0;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.9);
+            border: 1px solid #4CAF50;
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.9);
+            border: 1px solid #f44336;
+        }
+
+        .alert-info {
+            background: rgba(33, 150, 243, 0.9);
+            border: 1px solid #2196F3;
+        }
+
+        .quantum-circuit {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            min-height: 60px;
+        }
+
+        .gate {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #FFD700;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .qubit-line {
+            flex: 1;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+
+        .algorithm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .algorithm-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .algorithm-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #FFD700;
+        }
+
+        .algorithm-card.selected {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .job-history {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .job-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .job-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-pending { background: #ff9800; color: #000; }
+        .status-completed { background: #4caf50; color: #fff; }
+        .status-failed { background: #f44336; color: #fff; }
+
+        .contract-info {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+
+        .contract-address {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .network-indicator {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 15px;
+            border-radius: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .network-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #f44336;
+            animation: pulse 2s infinite;
+        }
+
+        .network-dot.connected {
+            background: #4caf50;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .quantum-grid { grid-template-columns: 1fr; }
+            .status-bar { grid-template-columns: 1fr; }
+            .algorithm-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="network-indicator">
+        <div class="network-dot" id="networkDot"></div>
+        <span id="networkStatus">Disconnected</span>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>⚛️ Quantum Privacy Computing</h1>
+            <p>Advanced confidential quantum computing platform powered by Fully Homomorphic Encryption (FHE) technology</p>
+        </div>
+
+        <!-- Contract Information -->
+        <div class="contract-info">
+            <h3>Smart Contract Information</h3>
+            <div class="contract-address">0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2</div>
+            <p>Deployed on Ethereum Sepolia Testnet</p>
+        </div>
+
+        <!-- Network Status -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span>Wallet:</span>
+                <span class="status-value" id="walletStatus">Not Connected</span>
+            </div>
+            <div class="status-item">
+                <span>Network:</span>
+                <span class="status-value" id="networkName">Unknown</span>
+            </div>
+            <div class="status-item">
+                <span>Contract:</span>
+                <span class="status-value" id="contractStatus">Not Loaded</span>
+            </div>
+            <div class="status-item">
+                <span>Gas Price:</span>
+                <span class="status-value" id="gasPrice">-- Gwei</span>
+            </div>
+        </div>
+
+        <div class="quantum-grid">
+            <!-- Wallet Connection -->
+            <div class="quantum-card">
+                <h3>🔗 Wallet Connection</h3>
+                <p>Connect your MetaMask wallet to interact with the quantum computing contract</p>
+
+                <button class="btn btn-primary" onclick="connectWallet()" id="connectBtn">Connect Wallet</button>
+                <button class="btn" onclick="switchToSepolia()" id="switchNetworkBtn" style="display:none;">Switch to Sepolia</button>
+
+                <div class="results-panel">
+                    <div class="result-item">
+                        <span class="result-label">Balance:</span>
+                        <span id="walletBalance">0 ETH</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Chain ID:</span>
+                        <span id="chainId">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum State Initialization -->
+            <div class="quantum-card">
+                <h3>⚛️ Quantum State Setup</h3>
+                <p>Initialize your private quantum state with encrypted amplitudes using FHE</p>
+
+                <div class="input-group">
+                    <label>Number of Qubits (1-3):</label>
+                    <input type="number" id="qubitCount" min="1" max="3" value="3" onchange="updateAmplitudeInputs()">
+                </div>
+
+                <div class="input-group">
+                    <label>Quantum State Amplitudes (0-255):</label>
+                    <div id="amplitudes" class="quantum-state">
+                        <!-- Dynamically generated amplitude inputs -->
+                    </div>
+                </div>
+
+                <button class="btn btn-success" onclick="initializeQuantumState()">Initialize State</button>
+
+                <div class="results-panel">
+                    <div class="result-item">
+                        <span class="result-label">State:</span>
+                        <span id="stateStatus">Not Initialized</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Entangled:</span>
+                        <span id="entangleStatus">No</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Timestamp:</span>
+                        <span id="stateTimestamp">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum Algorithm Execution -->
+            <div class="quantum-card">
+                <h3>🧮 Quantum Algorithms</h3>
+                <p>Execute advanced quantum algorithms on encrypted data</p>
+
+                <div class="algorithm-grid">
+                    <div class="algorithm-card" onclick="selectAlgorithm(0)" data-type="0">
+                        <h4>Shor's Algorithm</h4>
+                        <p>Integer Factorization</p>
+                    </div>
+                    <div class="algorithm-card" onclick="selectAlgorithm(1)" data-type="1">
+                        <h4>Grover's Search</h4>
+                        <p>Database Search</p>
+                    </div>
+                    <div class="algorithm-card" onclick="selectAlgorithm(2)" data-type="2">
+                        <h4>VQE</h4>
+                        <p>Variational Eigensolver</p>
+                    </div>
+                    <div class="algorithm-card" onclick="selectAlgorithm(3)" data-type="3">
+                        <h4>QAOA</h4>
+                        <p>Optimization</p>
+                    </div>
+                    <div class="algorithm-card" onclick="selectAlgorithm(4)" data-type="4">
+                        <h4>Quantum ML</h4>
+                        <p>Machine Learning</p>
+                    </div>
+                    <div class="algorithm-card" onclick="selectAlgorithm(5)" data-type="5">
+                        <h4>Custom Circuit</h4>
+                        <p>Custom Algorithm</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Input Data (0-255):</label>
+                    <input type="number" id="quantumInput" min="0" max="255" value="42" placeholder="Enter encrypted input">
+                </div>
+
+                <button class="btn btn-primary" onclick="submitQuantumJob()">Submit Job</button>
+                <button class="btn btn-success" onclick="executeQuantumJob()" id="executeBtn" disabled>Execute Algorithm</button>
+
+                <div class="results-panel">
+                    <div class="result-item">
+                        <span class="result-label">Job ID:</span>
+                        <span id="currentJobId">None</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Algorithm:</span>
+                        <span id="selectedAlgorithm">Not Selected</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Status:</span>
+                        <span id="jobStatus">Ready</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Result:</span>
+                        <span id="jobResult">Pending</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantum Circuit Designer -->
+            <div class="quantum-card">
+                <h3>🔧 Circuit Designer</h3>
+                <p>Design and compile custom quantum circuits</p>
+
+                <div class="input-group">
+                    <label>Circuit ID:</label>
+                    <input type="number" id="circuitId" value="1" min="1">
+                </div>
+
+                <div class="input-group">
+                    <label>Quantum Gates:</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn" onclick="addGate('H')">Add H Gate</button>
+                        <button class="btn" onclick="addGate('CNOT')">Add CNOT</button>
+                        <button class="btn" onclick="addGate('X')">Add X Gate</button>
+                        <button class="btn" onclick="addGate('Z')">Add Z Gate</button>
+                        <button class="btn" onclick="addGate('Phase')">Add Phase</button>
+                    </div>
+                </div>
+
+                <div id="circuitVisualization" class="results-panel">
+                    <p>No gates added yet</p>
+                </div>
+
+                <button class="btn btn-success" onclick="compileCircuit()">Compile Circuit</button>
+                <button class="btn btn-danger" onclick="clearCircuit()">Clear Circuit</button>
+            </div>
+
+            <!-- Quantum Entanglement -->
+            <div class="quantum-card">
+                <h3>🔗 Quantum Entanglement</h3>
+                <p>Create entangled quantum states with other users</p>
+
+                <div class="input-group">
+                    <label>Partner Wallet Address:</label>
+                    <input type="text" id="partnerAddress" placeholder="0x..." maxlength="42">
+                </div>
+
+                <button class="btn btn-primary" onclick="createEntanglement()">Create Entanglement</button>
+
+                <div class="results-panel">
+                    <div class="result-item">
+                        <span class="result-label">Entanglement:</span>
+                        <span id="entanglementStatus">Not Entangled</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Partner:</span>
+                        <span id="entanglementPartner">None</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job History & Analytics -->
+            <div class="quantum-card">
+                <h3>📊 Job History</h3>
+                <p>Track your quantum computation history and performance</p>
+
+                <button class="btn btn-primary" onclick="loadJobHistory()">Refresh History</button>
+                <button class="btn" onclick="exportJobHistory()">Export Data</button>
+
+                <div id="jobHistory" class="job-history results-panel">
+                    <p>No computation jobs yet</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load ethers.js v5 from local file -->
+    <script src="./ethers.min.js"></script>
+
+    <script>
+        // Contract Configuration
+        const CONTRACT_ADDRESS = "0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2";
+        const SEPOLIA_CHAIN_ID = "0xaa36a7"; // 11155111 in hex
+
+        // Contract ABI (extracted from compilation)
+        const CONTRACT_ABI = [
+            {
+                "inputs": [],
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {"indexed": true, "internalType": "uint256", "name": "circuitId", "type": "uint256"},
+                    {"indexed": false, "internalType": "uint256", "name": "depth", "type": "uint256"}
+                ],
+                "name": "CircuitCompiled",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {"indexed": true, "internalType": "address", "name": "user1", "type": "address"},
+                    {"indexed": true, "internalType": "address", "name": "user2", "type": "address"}
+                ],
+                "name": "EntanglementCreated",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {"indexed": true, "internalType": "uint256", "name": "jobId", "type": "uint256"},
+                    {"indexed": true, "internalType": "address", "name": "submitter", "type": "address"}
+                ],
+                "name": "QuantumJobCompleted",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {"indexed": true, "internalType": "uint256", "name": "jobId", "type": "uint256"},
+                    {"indexed": true, "internalType": "address", "name": "submitter", "type": "address"},
+                    {"indexed": false, "internalType": "uint8", "name": "algorithmType", "type": "uint8"}
+                ],
+                "name": "QuantumJobSubmitted",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {"indexed": true, "internalType": "address", "name": "user", "type": "address"},
+                    {"indexed": false, "internalType": "uint8", "name": "qubitCount", "type": "uint8"}
+                ],
+                "name": "QuantumStateInitialized",
+                "type": "event"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "_node", "type": "address"}],
+                "name": "authorizeNode",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {"internalType": "uint256", "name": "_circuitId", "type": "uint256"},
+                    {"internalType": "uint8[]", "name": "_gateTypes", "type": "uint8[]"},
+                    {"internalType": "uint8[]", "name": "_targetQubits", "type": "uint8[]"},
+                    {"internalType": "uint8[]", "name": "_controlQubits", "type": "uint8[]"}
+                ],
+                "name": "compileQuantumCircuit",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "_partner", "type": "address"}],
+                "name": "createEntanglement",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "uint256", "name": "_jobId", "type": "uint256"}],
+                "name": "executeQuantumAlgorithm",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "uint256", "name": "_circuitId", "type": "uint256"}],
+                "name": "getCircuitInfo",
+                "outputs": [
+                    {"internalType": "uint8[]", "name": "gateTypes", "type": "uint8[]"},
+                    {"internalType": "uint8[]", "name": "targetQubits", "type": "uint8[]"},
+                    {"internalType": "bool", "name": "isCompiled", "type": "bool"},
+                    {"internalType": "uint256", "name": "depth", "type": "uint256"}
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "uint256", "name": "_jobId", "type": "uint256"}],
+                "name": "getJobInfo",
+                "outputs": [
+                    {"internalType": "address", "name": "submitter", "type": "address"},
+                    {"internalType": "uint8", "name": "algorithmType", "type": "uint8"},
+                    {"internalType": "bool", "name": "isCompleted", "type": "bool"},
+                    {"internalType": "bool", "name": "isVerified", "type": "bool"},
+                    {"internalType": "uint256", "name": "submitTime", "type": "uint256"},
+                    {"internalType": "uint256", "name": "completeTime", "type": "uint256"},
+                    {"internalType": "uint256", "name": "gasUsed", "type": "uint256"}
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "uint256", "name": "_jobId", "type": "uint256"}],
+                "name": "getJobResult",
+                "outputs": [{"internalType": "bytes", "name": "", "type": "bytes"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "_user", "type": "address"}],
+                "name": "getQuantumStateInfo",
+                "outputs": [
+                    {"internalType": "uint8", "name": "qubitCount", "type": "uint8"},
+                    {"internalType": "bool", "name": "isEntangled", "type": "bool"},
+                    {"internalType": "uint256", "name": "timestamp", "type": "uint256"}
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [{"internalType": "address", "name": "_user", "type": "address"}],
+                "name": "getUserJobHistory",
+                "outputs": [{"internalType": "uint256[]", "name": "", "type": "uint256[]"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {"internalType": "uint8[]", "name": "_amplitudes", "type": "uint8[]"},
+                    {"internalType": "uint8", "name": "_qubitCount", "type": "uint8"}
+                ],
+                "name": "initializeQuantumState",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "owner",
+                "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {"internalType": "uint8", "name": "_encryptedInput", "type": "uint8"},
+                    {"internalType": "uint8", "name": "_algorithmType", "type": "uint8"}
+                ],
+                "name": "submitQuantumJob",
+                "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }
+        ];
+
+        // Global variables
+        let provider = null;
+        let signer = null;
+        let contract = null;
+        let currentJobId = null;
+        let selectedAlgorithmType = null;
+        let circuitGates = [];
+
+        // Algorithm names mapping
+        const ALGORITHM_NAMES = [
+            "Shor's Algorithm",
+            "Grover's Search",
+            "VQE",
+            "QAOA",
+            "Quantum ML",
+            "Custom Circuit"
+        ];
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAmplitudeInputs();
+            checkWalletConnection();
+            setInterval(updateGasPrice, 30000); // Update gas price every 30 seconds
+        });
+
+        // Wallet connection functions
+        async function connectWallet() {
+            if (typeof window.ethereum === 'undefined') {
+                showAlert('Please install MetaMask to use this application', 'error');
+                return;
+            }
+
+            try {
+                showAlert('Connecting to wallet...', 'info');
+
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                // 使用 ethers v5 语法
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+
+                const address = await signer.getAddress();
+                const network = await provider.getNetwork();
+                const balance = await provider.getBalance(address);
+
+                // Update UI
+                document.getElementById('walletStatus').textContent =
+                    `${address.slice(0, 6)}...${address.slice(-4)}`;
+                document.getElementById('networkName').textContent = network.name || 'Unknown';
+                document.getElementById('chainId').textContent = network.chainId.toString();
+                document.getElementById('walletBalance').textContent =
+                    `${ethers.utils.formatEther(balance).slice(0, 6)} ETH`;
+
+                // Update network indicator
+                const networkDot = document.getElementById('networkDot');
+                const networkStatus = document.getElementById('networkStatus');
+
+                if (network.chainId === 11155111) { // Sepolia (v5 不使用 BigInt)
+                    networkDot.classList.add('connected');
+                    networkStatus.textContent = 'Sepolia';
+
+                    // Initialize contract
+                    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                    document.getElementById('contractStatus').textContent = 'Connected';
+
+                    showAlert('Wallet connected successfully!', 'success');
+                } else {
+                    networkStatus.textContent = 'Wrong Network';
+                    document.getElementById('switchNetworkBtn').style.display = 'inline-block';
+                    showAlert('Please switch to Sepolia testnet', 'error');
+                }
+
+                // Hide connect button, show disconnect
+                document.getElementById('connectBtn').textContent = 'Disconnect';
+                document.getElementById('connectBtn').onclick = disconnectWallet;
+
+            } catch (error) {
+                console.error('Connection error:', error);
+                showAlert('Failed to connect wallet: ' + error.message, 'error');
+            }
+        }
+
+        async function disconnectWallet() {
+            provider = null;
+            signer = null;
+            contract = null;
+
+            // Reset UI
+            document.getElementById('walletStatus').textContent = 'Not Connected';
+            document.getElementById('networkName').textContent = 'Unknown';
+            document.getElementById('chainId').textContent = '--';
+            document.getElementById('walletBalance').textContent = '0 ETH';
+            document.getElementById('contractStatus').textContent = 'Not Loaded';
+
+            const networkDot = document.getElementById('networkDot');
+            const networkStatus = document.getElementById('networkStatus');
+            networkDot.classList.remove('connected');
+            networkStatus.textContent = 'Disconnected';
+
+            document.getElementById('connectBtn').textContent = 'Connect Wallet';
+            document.getElementById('connectBtn').onclick = connectWallet;
+            document.getElementById('switchNetworkBtn').style.display = 'none';
+
+            showAlert('Wallet disconnected', 'info');
+        }
+
+        async function switchToSepolia() {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: SEPOLIA_CHAIN_ID }]
+                });
+
+                // Reconnect after network switch
+                setTimeout(connectWallet, 1000);
+            } catch (error) {
+                if (error.code === 4902) {
+                    // Network not added to MetaMask
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: SEPOLIA_CHAIN_ID,
+                                chainName: 'Sepolia Test Network',
+                                nativeCurrency: {
+                                    name: 'Sepolia ETH',
+                                    symbol: 'SEP ETH',
+                                    decimals: 18
+                                },
+                                rpcUrls: ['https://sepolia.infura.io/v3/'],
+                                blockExplorerUrls: ['https://sepolia.etherscan.io/']
+                            }]
+                        });
+                    } catch (addError) {
+                        showAlert('Failed to add Sepolia network', 'error');
+                    }
+                } else {
+                    showAlert('Failed to switch network: ' + error.message, 'error');
+                }
+            }
+        }
+
+        async function checkWalletConnection() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    if (accounts.length > 0) {
+                        connectWallet();
+                    }
+                } catch (error) {
+                    console.error('Error checking wallet connection:', error);
+                }
+
+                // Listen for account changes
+                window.ethereum.on('accountsChanged', (accounts) => {
+                    if (accounts.length === 0) {
+                        disconnectWallet();
+                    } else {
+                        connectWallet();
+                    }
+                });
+
+                // Listen for network changes
+                window.ethereum.on('chainChanged', () => {
+                    window.location.reload();
+                });
+            }
+        }
+
+        // Quantum state functions
+        function updateAmplitudeInputs() {
+            const qubitCount = parseInt(document.getElementById('qubitCount').value);
+            const stateSize = Math.pow(2, qubitCount);
+            const amplitudesDiv = document.getElementById('amplitudes');
+
+            amplitudesDiv.innerHTML = '';
+
+            for (let i = 0; i < stateSize; i++) {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.min = '0';
+                input.max = '255';
+                input.value = i === 0 ? '255' : '0'; // |0...0⟩ state
+                input.className = 'amplitude';
+                input.placeholder = `|${i.toString(2).padStart(qubitCount, '0')}⟩`;
+                amplitudesDiv.appendChild(input);
+            }
+        }
+
+        async function initializeQuantumState() {
+            if (!contract) {
+                showAlert('Please connect wallet first', 'error');
+                return;
+            }
+
+            try {
+                const qubitCount = parseInt(document.getElementById('qubitCount').value);
+                const amplitudeInputs = document.querySelectorAll('.amplitude');
+                const amplitudes = Array.from(amplitudeInputs).map(input => parseInt(input.value) || 0);
+
+                // Validate amplitudes
+                if (amplitudes.some(amp => amp < 0 || amp > 255)) {
+                    showAlert('Amplitudes must be between 0 and 255', 'error');
+                    return;
+                }
+
+                showAlert('Initializing quantum state...', 'info');
+
+                const tx = await contract.initializeQuantumState(amplitudes, qubitCount);
+                showAlert('Transaction submitted. Waiting for confirmation...', 'info');
+
+                await tx.wait();
+
+                document.getElementById('stateStatus').textContent = `${qubitCount} qubits`;
+                document.getElementById('stateTimestamp').textContent = new Date().toLocaleString();
+
+                showAlert('Quantum state initialized successfully!', 'success');
+
+                // Update quantum state info
+                setTimeout(updateQuantumStateInfo, 2000);
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showAlert('Failed to initialize quantum state: ' + error.message, 'error');
+            }
+        }
+
+        async function updateQuantumStateInfo() {
+            if (!contract || !signer) return;
+
+            try {
+                const address = await signer.getAddress();
+                const stateInfo = await contract.getQuantumStateInfo(address);
+
+                document.getElementById('stateStatus').textContent = `${stateInfo[0]} qubits`;
+                document.getElementById('entangleStatus').textContent = stateInfo[1] ? 'Yes' : 'No';
+
+                if (stateInfo[2] > 0) {
+                    document.getElementById('stateTimestamp').textContent =
+                        new Date(Number(stateInfo[2]) * 1000).toLocaleString();
+                }
+
+            } catch (error) {
+                console.log('Quantum state not initialized yet');
+            }
+        }
+
+        // Algorithm selection
+        function selectAlgorithm(type) {
+            // Remove previous selection
+            document.querySelectorAll('.algorithm-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            // Select new algorithm
+            const selectedCard = document.querySelector(`[data-type="${type}"]`);
+            selectedCard.classList.add('selected');
+
+            selectedAlgorithmType = type;
+            document.getElementById('selectedAlgorithm').textContent = ALGORITHM_NAMES[type];
+        }
+
+        // Quantum job functions
+        async function submitQuantumJob() {
+            if (!contract) {
+                showAlert('Please connect wallet first', 'error');
+                return;
+            }
+
+            if (selectedAlgorithmType === null) {
+                showAlert('Please select an algorithm first', 'error');
+                return;
+            }
+
+            try {
+                const input = parseInt(document.getElementById('quantumInput').value);
+
+                if (input < 0 || input > 255) {
+                    showAlert('Input must be between 0 and 255', 'error');
+                    return;
+                }
+
+                showAlert('Submitting quantum job...', 'info');
+
+                const tx = await contract.submitQuantumJob(input, selectedAlgorithmType);
+                showAlert('Transaction submitted. Waiting for confirmation...', 'info');
+
+                const receipt = await tx.wait();
+
+                // Extract job ID from events
+                const event = receipt.logs.find(log => {
+                    try {
+                        const parsed = contract.interface.parseLog(log);
+                        return parsed.name === 'QuantumJobSubmitted';
+                    } catch {
+                        return false;
+                    }
+                });
+
+                if (event) {
+                    const parsed = contract.interface.parseLog(event);
+                    currentJobId = Number(parsed.args[0]);
+                    document.getElementById('currentJobId').textContent = currentJobId;
+                    document.getElementById('executeBtn').disabled = false;
+                    document.getElementById('jobStatus').textContent = 'Submitted';
+                }
+
+                showAlert('Quantum job submitted successfully!', 'success');
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                showAlert('Failed to submit job: ' + error.message, 'error');
+            }
+        }
+
+        async function executeQuantumJob() {
+            if (!contract || !currentJobId) {
+                showAlert('No job to execute', 'error');
+                return;
+            }
+
+            try {
+                showAlert('Executing quantum algorithm...', 'info');
+                document.getElementById('jobStatus').innerHTML = '<div class="loading"></div> Computing...';
+
+                const tx = await contract.executeQuantumAlgorithm(currentJobId);
+                showAlert('Execution started. Waiting for confirmation...', 'info');
+
+                await tx.wait();
+
+                document.getElementById('jobStatus').textContent = 'Completed';
+                showAlert('Quantum algorithm executed successfully!', 'success');
+
+                // Get result after a short delay
+                setTimeout(async () => {
+                    try {
+                        const result = await contract.getJobResult(currentJobId);
+                        document.getElementById('jobResult').textContent =
+                            result.length > 10 ? result.slice(0, 10) + '...' : result;
+                    } catch (e) {
+                        console.log('Result not yet available');
+                    }
+                }, 3000);
+
+            } catch (error) {
+                console.error('Execution error:', error);
+                document.getElementById('jobStatus').textContent = 'Failed';
+                showAlert('Failed to execute job: ' + error.message, 'error');
+            }
+        }
+
+        // Circuit designer functions
+        function addGate(gateType) {
+            const targetQubit = prompt(`Target qubit for ${gateType} gate (0-2):`, '0');
+            if (targetQubit === null) return;
+
+            const target = parseInt(targetQubit);
+            if (isNaN(target) || target < 0 || target > 2) {
+                showAlert('Invalid target qubit. Must be 0, 1, or 2', 'error');
+                return;
+            }
+
+            let control = 0;
+            if (gateType === 'CNOT') {
+                const controlQubit = prompt('Control qubit (0-2):', '0');
+                if (controlQubit === null) return;
+
+                control = parseInt(controlQubit);
+                if (isNaN(control) || control < 0 || control > 2 || control === target) {
+                    showAlert('Invalid control qubit. Must be different from target', 'error');
+                    return;
+                }
+            }
+
+            const gateTypeMap = {'H': 0, 'CNOT': 1, 'X': 2, 'Z': 3, 'Phase': 4};
+
+            circuitGates.push({
+                type: gateTypeMap[gateType],
+                target: target,
+                control: control,
+                name: gateType
+            });
+
+            updateCircuitVisualization();
+        }
+
+        function updateCircuitVisualization() {
+            const circuitDiv = document.getElementById('circuitVisualization');
+
+            if (circuitGates.length === 0) {
+                circuitDiv.innerHTML = '<p>No gates added yet</p>';
+                return;
+            }
+
+            circuitDiv.innerHTML = '<h4>Current Circuit:</h4>';
+
+            circuitGates.forEach((gate, index) => {
+                const gateDiv = document.createElement('div');
+                gateDiv.className = 'quantum-circuit';
+
+                const gateElement = document.createElement('div');
+                gateElement.className = 'gate';
+                gateElement.textContent = gate.name;
+
+                const qubitLine = document.createElement('div');
+                qubitLine.className = 'qubit-line';
+
+                const labelDiv = document.createElement('div');
+                labelDiv.textContent = `Q${gate.target}${gate.name === 'CNOT' ? ` (ctrl: Q${gate.control})` : ''}`;
+                labelDiv.style.marginLeft = '10px';
+
+                gateDiv.appendChild(gateElement);
+                gateDiv.appendChild(qubitLine);
+                gateDiv.appendChild(labelDiv);
+
+                circuitDiv.appendChild(gateDiv);
+            });
+        }
+
+        async function compileCircuit() {
+            if (!contract || circuitGates.length === 0) {
+                showAlert('No gates to compile', 'error');
+                return;
+            }
+
+            try {
+                const circuitId = parseInt(document.getElementById('circuitId').value);
+                const gateTypes = circuitGates.map(g => g.type);
+                const targetQubits = circuitGates.map(g => g.target);
+                const controlQubits = circuitGates.map(g => g.control);
+
+                showAlert('Compiling quantum circuit...', 'info');
+
+                const tx = await contract.compileQuantumCircuit(circuitId, gateTypes, targetQubits, controlQubits);
+                showAlert('Transaction submitted. Waiting for confirmation...', 'info');
+
+                await tx.wait();
+
+                showAlert('Quantum circuit compiled successfully!', 'success');
+
+            } catch (error) {
+                console.error('Compilation error:', error);
+                showAlert('Failed to compile circuit: ' + error.message, 'error');
+            }
+        }
+
+        function clearCircuit() {
+            circuitGates = [];
+            updateCircuitVisualization();
+            showAlert('Circuit cleared', 'info');
+        }
+
+        // Entanglement functions
+        async function createEntanglement() {
+            if (!contract) {
+                showAlert('Please connect wallet first', 'error');
+                return;
+            }
+
+            try {
+                const partnerAddress = document.getElementById('partnerAddress').value.trim();
+
+                if (!ethers.isAddress(partnerAddress)) {
+                    showAlert('Please enter a valid Ethereum address', 'error');
+                    return;
+                }
+
+                showAlert('Creating quantum entanglement...', 'info');
+
+                const tx = await contract.createEntanglement(partnerAddress);
+                showAlert('Transaction submitted. Waiting for confirmation...', 'info');
+
+                await tx.wait();
+
+                document.getElementById('entanglementStatus').textContent = 'Entangled';
+                document.getElementById('entanglementPartner').textContent =
+                    `${partnerAddress.slice(0, 6)}...${partnerAddress.slice(-4)}`;
+
+                showAlert('Quantum entanglement created successfully!', 'success');
+
+            } catch (error) {
+                console.error('Entanglement error:', error);
+                showAlert('Failed to create entanglement: ' + error.message, 'error');
+            }
+        }
+
+        // Job history functions
+        async function loadJobHistory() {
+            if (!contract || !signer) {
+                showAlert('Please connect wallet first', 'error');
+                return;
+            }
+
+            try {
+                showAlert('Loading job history...', 'info');
+
+                const address = await signer.getAddress();
+                const jobIds = await contract.getUserJobHistory(address);
+
+                const historyDiv = document.getElementById('jobHistory');
+
+                if (jobIds.length === 0) {
+                    historyDiv.innerHTML = '<p>No computation jobs yet</p>';
+                    return;
+                }
+
+                historyDiv.innerHTML = '<h4>Job History:</h4>';
+
+                for (const jobId of jobIds) {
+                    try {
+                        const jobInfo = await contract.getJobInfo(jobId);
+                        const jobDiv = document.createElement('div');
+                        jobDiv.className = 'job-item';
+
+                        const algorithmName = ALGORITHM_NAMES[jobInfo[1]] || 'Unknown';
+                        const status = jobInfo[2] ? 'completed' : 'pending';
+                        const submitTime = new Date(Number(jobInfo[4]) * 1000).toLocaleString();
+
+                        jobDiv.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong>Job #${jobId}</strong> - ${algorithmName}
+                                    <br><small>Submitted: ${submitTime}</small>
+                                </div>
+                                <span class="job-status status-${status}">${status.toUpperCase()}</span>
+                            </div>
+                        `;
+
+                        historyDiv.appendChild(jobDiv);
+                    } catch (error) {
+                        console.error(`Error loading job ${jobId}:`, error);
+                    }
+                }
+
+                showAlert('Job history loaded successfully!', 'success');
+
+            } catch (error) {
+                console.error('History loading error:', error);
+                showAlert('Failed to load job history: ' + error.message, 'error');
+            }
+        }
+
+        function exportJobHistory() {
+            const historyDiv = document.getElementById('jobHistory');
+            const historyText = historyDiv.innerText;
+
+            const blob = new Blob([historyText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `quantum_job_history_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showAlert('Job history exported successfully!', 'success');
+        }
+
+        // Utility functions
+        async function updateGasPrice() {
+            if (!provider) return;
+
+            try {
+                const feeData = await provider.getFeeData();
+                if (feeData.gasPrice) {
+                    // 使用 ethers v5 语法
+                    const gasPriceGwei = ethers.utils.formatUnits(feeData.gasPrice, 'gwei');
+                    document.getElementById('gasPrice').textContent =
+                        `${parseFloat(gasPriceGwei).toFixed(1)} Gwei`;
+                }
+            } catch (error) {
+                console.error('Error updating gas price:', error);
+            }
+        }
+
+        function showAlert(message, type = 'info') {
+            // Remove existing alerts
+            document.querySelectorAll('.alert').forEach(alert => alert.remove());
+
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.innerHTML = message;
+
+            document.body.appendChild(alertDiv);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+
+            // Click to dismiss
+            alertDiv.addEventListener('click', () => alertDiv.remove());
+        }
+
+        // Initialize amplitude inputs on page load
+        updateAmplitudeInputs();
+    </script>
+</body>
+</html>
