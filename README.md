@@ -334,7 +334,7 @@ npm install && npm start
 - TypeScript IntelliSense showcase (30 seconds)
 - Live coding demonstration (60 seconds)
 
-**Video Link**: [demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]
+**Video **: [demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]
 
 
 
