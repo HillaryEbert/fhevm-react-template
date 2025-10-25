@@ -18,11 +18,7 @@
     "dev:nextjs": "cd examples/nextjs-app && npm install && npm run dev",
     "build:nextjs": "cd examples/nextjs-app && npm install && npm run build",
     "start:nextjs": "cd examples/nextjs-app && npm run start",
-    "preview": "npx http-server ./public -p 8080 -c-1 --cors -o",
-    "preview:quantum": "npx http-server ./public -p 8081 -c-1 --cors -o",
     "start:demo": "npx http-server ./public -p 8080 -c-1 --cors",
-    "deploy:vercel": "vercel",
-    "deploy:vercel:prod": "vercel --prod",
     "clean": "rm -rf node_modules packages/*/node_modules examples/*/node_modules",
     "clean:build": "rm -rf packages/fhevm-sdk/dist artifacts cache"
   },

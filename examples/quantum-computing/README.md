@@ -7,7 +7,7 @@ A cutting-edge confidential quantum computing platform leveraging Fully Homomorp
 
 ## 🎬 Demo
 
-**Video Demonstration**: [demo.mp4](demo.mp4)
+**Video Demonstration**: [demo.mp4]
 
 **Live Application**: [https://hillaryebert.github.io/QuantumCompute/](https://hillaryebert.github.io/QuantumCompute/)
 
