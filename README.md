@@ -1,11 +1,11 @@
-# 🔒 FHEVM Universal SDK
+# FHEVM Universal SDK
 
 > **Zama FHEVM SDK Competition Submission** - A wagmi-inspired, framework-agnostic SDK
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://reactjs.org/)
 
-**A wagmi-inspired, framework-agnostic SDK for building encrypted blockchain applications with Zama's FHEVM technology, plus a production-ready quantum computing application.**
+**A wagmi-inspired, framework-agnostic SDK for building encrypted blockchain applications with Zama's FHEVM technology, plus production-ready example applications.**
 
 ---
 
@@ -29,17 +29,17 @@
 
 ### Developer Program Reviewers
 - **Application**: [`examples/quantum-computing/`](./examples/quantum-computing)
-- **Smart Contract**: `QuantumPrivacyCompute.sol` - [0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2](https://sepolia.etherscan.io/address/0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2)
+- **Smart Contract**: `QuantumPrivacyCompute.sol` - [View on Etherscan](https://sepolia.etherscan.io/address/0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2)
 - **Live Demo**: [Quantum Privacy Computing Platform](#-deployment)
 - **Video Demo**: [Developer Program Demo Video](#-video-demonstrations)
 
 ---
 
-## 🌟 Project Overview
+## Project Overview
 
 This repository contains a universal FHEVM SDK with multiple framework examples:
 
-### 1. @quantum-privacy/fhevm-sdk (SDK Competition)
+### 1. Universal FHEVM SDK (SDK Competition)
 
 A **universal, wagmi-inspired SDK** that makes FHEVM development as easy as traditional Web3 development. Designed with the following principles:
 
@@ -66,7 +66,7 @@ A **production-ready quantum computing simulation platform** on Ethereum using F
 ```
 fhevm-universal-sdk/
 ├── packages/
-│   └── fhevm-sdk/              # 🏆 SDK Competition - Main SDK Package
+│   └── fhevm-sdk/              # SDK Competition - Main SDK Package
 │       ├── src/
 │       │   ├── hooks/          # React hooks (useWallet, useEncrypt, useContract)
 │       │   ├── providers/      # FhevmProvider for React Context
@@ -76,7 +76,7 @@ fhevm-universal-sdk/
 │       └── README.md           # Comprehensive SDK documentation
 │
 ├── examples/
-│   ├── quantum-computing/      # 🏆 Developer Program - Main Application
+│   ├── quantum-computing/      # Developer Program - Main Application
 │   │   ├── contracts/          # QuantumPrivacyCompute smart contract
 │   │   ├── public/             # Frontend application
 │   │   ├── scripts/            # Deployment scripts
@@ -86,9 +86,8 @@ fhevm-universal-sdk/
 │   ├── react-demo/             # React 18 + Vite example
 │   └── vue-demo/               # Vue 3 integration example
 │
-├
-├
-├
+├── docs/                       # Documentation
+├── LICENSE                     # MIT License
 └── README.md                   # This file
 ```
 
@@ -103,7 +102,7 @@ fhevm-universal-sdk/
 Familiar patterns for Web3 developers:
 
 ```typescript
-import { useWallet, useContract, useFhevm } from '@quantum-privacy/fhevm-sdk';
+import { useWallet, useContract, useFhevm } from '@fhevm/sdk';
 
 function MyApp() {
   const { connect, address, isConnected } = useWallet();
@@ -120,7 +119,7 @@ Works with any JavaScript framework:
 
 ```typescript
 // Vanilla JS / Vue / Angular / Svelte
-import { createFhevmInstance, encryptValue } from '@quantum-privacy/fhevm-sdk';
+import { createFhevmInstance, encryptValue } from '@fhevm/sdk';
 
 const fhevm = await createFhevmInstance({ chainId: 11155111 });
 const encrypted = await encryptValue(fhevm, 42);
@@ -159,13 +158,13 @@ interface WalletState {
 
 ```bash
 # Install the SDK
-npm install @quantum-privacy/fhevm-sdk ethers fhevmjs
+npm install @fhevm/sdk ethers fhevmjs
 
 # For React applications
-import { FhevmProvider, useWallet, useContract } from '@quantum-privacy/fhevm-sdk';
+import { FhevmProvider, useWallet, useContract } from '@fhevm/sdk';
 
 # For other frameworks
-import { createFhevmInstance, encryptValue } from '@quantum-privacy/fhevm-sdk';
+import { createFhevmInstance, encryptValue } from '@fhevm/sdk';
 ```
 
 **Full Documentation**: [packages/fhevm-sdk/README.md](./packages/fhevm-sdk/README.md)
@@ -221,7 +220,7 @@ npm run deploy
 ```bash
 # Clone the repository
 git clone https://github.com/HillaryEbert/fhevm-react-template.git
-cd fhevm-universal-sdk
+cd fhevm-react-template
 
 # Install dependencies
 npm install
@@ -230,8 +229,8 @@ npm install
 npm run build
 
 # Run examples
-cd examples/nextjs-demo && npm run dev    # Next.js on :3001
-cd examples/react-demo && npm run dev     # React on :3000
+cd examples/nextjs-demo && npm run dev    # Next.js on :3000
+cd examples/react-demo && npm run dev     # React on :3001
 cd examples/vue-demo && npm run dev       # Vue on :3002
 ```
 
@@ -240,7 +239,7 @@ cd examples/vue-demo && npm run dev       # Vue on :3002
 **Option 1: Use in Your Project**
 
 ```bash
-npm install @quantum-privacy/fhevm-sdk
+npm install @fhevm/sdk
 ```
 
 **Option 2: Run Example Applications**
@@ -324,17 +323,17 @@ npm install && npm start
 
 ## 🎬 Video Demonstrations
 
-### SDK Competition Demo (3-5 minutes)
-**Title**: "Building Encrypted dApps Made Easy with @quantum-privacy/fhevm-sdk"
+### SDK Competition Demo
+**Title**: "Building Encrypted Applications Made Easy with Universal FHEVM SDK"
 
 **Highlights**:
-- SDK installation and setup (30 seconds)
-- Creating a React app with hooks (60 seconds)
-- Framework-agnostic usage (45 seconds)
-- TypeScript IntelliSense showcase (30 seconds)
-- Live coding demonstration (60 seconds)
+- SDK installation and setup
+- Creating a React app with hooks
+- Framework-agnostic usage
+- TypeScript IntelliSense showcase
+- Live coding demonstration
 
-**Video **: [demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]
+**Video Files**: demo1.mp4, demo2.mp4, demo3.mp4, demo4.mp4
 
 
 
@@ -352,12 +351,12 @@ npm publish
 
 ### Quantum Computing Application
 
-**Live Demo**: [https://quantum-compute.vercel.app/]
+**Live Demo**: Visit the deployed application (link in repository releases)
 
 **Smart Contract**:
 - Network: Sepolia Testnet
-- Address: `0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2`
-- [View on Etherscan](https://sepolia.etherscan.io/address/0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2)
+- Address: Contract address available in examples/quantum-computing/README.md
+- [View on Etherscan](https://sepolia.etherscan.io)
 
 **Deploy Your Own**:
 ```bash
@@ -451,11 +450,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Documentation**: [https://github.com/HillaryEbert/fhevm-react-template]
-- **SDK Package**: [@quantum-privacy/fhevm-sdk on npm]
-- **Live Demo**: [https://quantum-compute.vercel.app/]
-- **Smart Contract**: [0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2 on Etherscan]
-- **Video Demos**: [[demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4]]
+- **Documentation**: [GitHub Repository](https://github.com/HillaryEbert/fhevm-react-template)
+- **SDK Package**: FHEVM SDK package in packages/fhevm-sdk
+- **Live Demo**: See examples directory for deployment instructions
+- **Smart Contract**: See examples/quantum-computing for contract details
+- **Video Demos**: demo1.mp4, demo2.mp4, demo3.mp4, demo4.mp4
 
 ---
 
