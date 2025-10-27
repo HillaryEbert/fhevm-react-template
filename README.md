@@ -87,6 +87,23 @@ fhevm-universal-sdk/
 │   └── vue-demo/               # Vue 3 integration example
 │
 ├── docs/                       # Documentation
+│   ├── README.md               # Documentation index
+│   ├── getting-started.md      # Quick start guide
+│   ├── api-reference.md        # Complete API docs
+│   ├── framework-integration.md # Framework guides
+│   ├── architecture.md         # System architecture
+│   ├── examples.md             # Code examples
+│   ├── best-practices.md       # Production guidelines
+│   ├── troubleshooting.md      # Common issues
+│   └── migration-guide.md      # Migration guide
+│
+├── templates/                  # Quick-start templates
+│   ├── README.md               # Template guide
+│   ├── nextjs/                 # Next.js template
+│   ├── react/                  # React template
+│   ├── vue/                    # Vue template
+│   └── nodejs/                 # Node.js template
+│
 ├── LICENSE                     # MIT License
 └── README.md                   # This file
 ```
@@ -209,13 +226,46 @@ npm run deploy
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### Quick Start Options
 
-- Node.js 18+ and npm
-- MetaMask or compatible Web3 wallet
-- Sepolia testnet ETH (get from [faucet](https://sepoliafaucet.com/))
+Choose the best option for your needs:
 
-### Installation
+#### Option 1: Use a Template (Fastest)
+
+Get started immediately with our pre-built templates:
+
+```bash
+# Copy a template
+cp -r templates/nextjs my-fhevm-app
+cd my-fhevm-app
+
+# Install and run
+npm install
+npm run dev
+```
+
+Available templates:
+- **Next.js** - Full-stack with API routes
+- **React** - Client-side SPA
+- **Vue** - Vue 3 application
+- **Node.js** - Backend server
+
+[View all templates →](./templates)
+
+#### Option 2: Install SDK in Existing Project
+
+Add FHEVM SDK to your existing application:
+
+```bash
+# Install the SDK
+npm install @fhevm/sdk ethers fhevmjs
+```
+
+Then follow our [integration guides](./docs/framework-integration.md) for your framework.
+
+#### Option 3: Explore Examples
+
+Run our complete example applications:
 
 ```bash
 # Clone the repository
@@ -225,46 +275,36 @@ cd fhevm-react-template
 # Install dependencies
 npm install
 
-# Build the SDK
-npm run build
-
-# Run examples
-cd examples/nextjs-demo && npm run dev    # Next.js on :3000
-cd examples/react-demo && npm run dev     # React on :3001
-cd examples/vue-demo && npm run dev       # Vue on :3002
-```
-
-### Try the SDK
-
-**Option 1: Use in Your Project**
-
-```bash
-npm install @fhevm/sdk
-```
-
-**Option 2: Run Example Applications**
-
-```bash
-# Next.js Example
+# Run Next.js example
 cd examples/nextjs-demo
-npm install && npm run dev
+npm install && npm run dev    # Open http://localhost:3000
 
-# React Example
+# Run React example
 cd examples/react-demo
-npm install && npm run dev
+npm install && npm run dev    # Open http://localhost:3001
 
-# Vue Example
+# Run Vue example
 cd examples/vue-demo
-npm install && npm run dev
-```
+npm install && npm run dev    # Open http://localhost:3002
 
-**Option 3: Try the Quantum Computing App**
-
-```bash
+# Run Quantum Computing app
 cd examples/quantum-computing
 npm install && npm start
-# Open your browser to the URL shown in the terminal
 ```
+
+### Prerequisites
+
+- **Node.js**: 18 or higher
+- **Package Manager**: npm or yarn
+- **Wallet**: MetaMask or compatible Web3 wallet
+- **Test ETH**: Sepolia testnet ETH (get from [faucet](https://sepoliafaucet.com/))
+
+### Next Steps
+
+1. **Read the Guide**: Start with [Getting Started](./docs/getting-started.md)
+2. **Explore Examples**: Check out [Code Examples](./docs/examples.md)
+3. **Learn Best Practices**: Read [Best Practices](./docs/best-practices.md)
+4. **Join Community**: Ask questions in GitHub Issues
 
 ---
 
@@ -302,21 +342,47 @@ npm install && npm start
 
 ## 📚 Documentation
 
-### SDK Documentation
+### Comprehensive Guides
+
+Our documentation covers everything from getting started to advanced usage:
+
+#### Core Documentation ([docs/](./docs))
+- **[Getting Started](./docs/getting-started.md)** - Quick start guide for all frameworks
+- **[API Reference](./docs/api-reference.md)** - Complete API documentation
+- **[Framework Integration](./docs/framework-integration.md)** - Integration guides for React, Vue, Angular, Svelte, Node.js
+- **[Architecture](./docs/architecture.md)** - SDK architecture and design decisions
+- **[Examples](./docs/examples.md)** - Code examples and common patterns
+- **[Best Practices](./docs/best-practices.md)** - Production guidelines and security
+- **[Troubleshooting](./docs/troubleshooting.md)** - Common issues and solutions
+- **[Migration Guide](./docs/migration-guide.md)** - Migrating from other libraries
+
+#### SDK Documentation
 - **Main README**: [packages/fhevm-sdk/README.md](./packages/fhevm-sdk/README.md)
 - **API Reference**: Comprehensive hook and utility documentation
 - **Framework Examples**: Next.js, React, Vue integration guides
 - **Type Definitions**: Full TypeScript API surface
 
-### Application Documentation
+#### Application Documentation
 - **Quantum Computing**: [examples/quantum-computing/README.md](./examples/quantum-computing/README.md)
-- **Smart Contract**: Detailed Solidity documentation with natspec
-- **Algorithm Guide**: Explanation of each quantum algorithm
-- **Deployment Guide**: Step-by-step deployment instructions
+- **Next.js Example**: [examples/nextjs-demo/README.md](./examples/nextjs-demo/README.md)
+- **React Example**: [examples/react-demo/README.md](./examples/react-demo/README.md)
+- **Vue Example**: [examples/vue-demo/README.md](./examples/vue-demo/README.md)
 
-### Project Documentation
-- **Structure Guide**: [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)
-- **Setup Summary**: [SETUP_SUMMARY.md](./SETUP_SUMMARY.md)
+### Quick Start Templates ([templates/](./templates))
+
+Ready-to-use templates for rapid development:
+
+- **[Next.js Template](./templates/nextjs/)** - Complete Next.js 14 application with App Router
+- **[React Template](./templates/react/)** - React 18 + Vite setup
+- **[Vue Template](./templates/vue/)** - Vue 3 with Composition API
+- **[Node.js Template](./templates/nodejs/)** - Backend server with FHEVM integration
+
+Each template includes:
+- ✅ Pre-configured FHEVM SDK integration
+- ✅ Example components and pages
+- ✅ TypeScript configuration
+- ✅ Build and deployment setup
+- ✅ Best practices implementation
 
 
 ---
@@ -448,13 +514,55 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🔗 Links
+## 🔗 Quick Links
 
-- **Documentation**: [GitHub Repository](https://github.com/HillaryEbert/fhevm-react-template)
-- **SDK Package**: FHEVM SDK package in packages/fhevm-sdk
-- **Live Demo**: See examples directory for deployment instructions
-- **Smart Contract**: See examples/quantum-computing for contract details
+### Documentation
+- **Getting Started**: [Quick Start Guide](./docs/getting-started.md)
+- **API Reference**: [Complete API Docs](./docs/api-reference.md)
+- **Framework Integration**: [Integration Guides](./docs/framework-integration.md)
+- **Examples**: [Code Examples](./docs/examples.md)
+- **Best Practices**: [Production Guidelines](./docs/best-practices.md)
+- **Troubleshooting**: [Common Issues](./docs/troubleshooting.md)
+
+### Templates
+- **Next.js**: [Next.js 14 Template](./templates/nextjs/)
+- **React**: [React 18 + Vite Template](./templates/react/)
+- **Vue**: [Vue 3 Template](./templates/vue/)
+- **Node.js**: [Backend Template](./templates/nodejs/)
+
+### Examples
+- **Next.js Demo**: [Full Example](./examples/nextjs-demo)
+- **React Demo**: [SPA Example](./examples/react-demo)
+- **Vue Demo**: [Vue Example](./examples/vue-demo)
+- **Quantum Computing**: [Production App](./examples/quantum-computing)
+
+### Resources
+- **GitHub Repository**: [HillaryEbert/fhevm-react-template](https://github.com/HillaryEbert/fhevm-react-template)
+- **SDK Package**: [packages/fhevm-sdk](./packages/fhevm-sdk)
 - **Video Demos**: demo1.mp4, demo2.mp4, demo3.mp4, demo4.mp4
+- **Issue Tracker**: [GitHub Issues](https://github.com/HillaryEbert/fhevm-react-template/issues)
+
+---
+
+## 📖 Learning Resources
+
+### For Beginners
+1. Start with [Getting Started Guide](./docs/getting-started.md)
+2. Try a [Quick Start Template](./templates)
+3. Follow [Code Examples](./docs/examples.md)
+4. Join the community and ask questions
+
+### For Advanced Users
+1. Review [Architecture Documentation](./docs/architecture.md)
+2. Study [Best Practices](./docs/best-practices.md)
+3. Explore [Framework Integration](./docs/framework-integration.md)
+4. Contribute to the project
+
+### For Contributors
+1. Read [Contributing Guidelines](#-contributing)
+2. Check [Open Issues](https://github.com/HillaryEbert/fhevm-react-template/issues)
+3. Review [Architecture](./docs/architecture.md)
+4. Submit Pull Requests
 
 ---
 
@@ -462,6 +570,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for the FHEVM SDK Competition & Zama Developer Program**
 
-[⭐ Star on GitHub](https://github.com/HillaryEbert/fhevm-react-template) | [📖 Read the Docs](./packages/fhevm-sdk/README.md) | [🎮 Try the Demo](https://quantum-compute.vercel.app/)
+[⭐ Star on GitHub](https://github.com/HillaryEbert/fhevm-react-template) | [📖 Documentation](./docs) | [🚀 Templates](./templates) | [💡 Examples](./examples)
+
+### Support This Project
+
+If you find this SDK useful, please consider:
+- ⭐ Starring the repository
+- 🐛 Reporting issues
+- 💡 Suggesting features
+- 🤝 Contributing code
+- 📢 Sharing with others
 
 </div>
