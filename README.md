@@ -7,6 +7,12 @@
 
 **A wagmi-inspired, framework-agnostic SDK for building encrypted blockchain applications with Zama's FHEVM technology, plus production-ready example applications.**
 
+## 🎬 Demo
+
+**Video Demonstration**: (demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4)
+
+**Live Application**: [https://hillaryebert.github.io/QuantumCompute/](https://hillaryebert.github.io/QuantumCompute/)
+
 ---
 
 ## 📑 Table of Contents
