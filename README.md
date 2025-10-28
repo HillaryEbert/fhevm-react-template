@@ -11,7 +11,7 @@
 
 **Video Demonstration**: (demo1.mp4 demo2.mp4 demo3.mp4 demo4.mp4)
 
-**Live Application**: [https://hillaryebert.github.io/QuantumCompute/](https://hillaryebert.github.io/QuantumCompute/)
+**Live Application**: [https://quantum-compute.vercel.app/](https://quantum-compute.vercel.app/)
 
 ---
 
