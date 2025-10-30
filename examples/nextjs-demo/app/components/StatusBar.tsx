@@ -1,33 +1,26 @@
 'use client';
 
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm, useWallet } from '@quantum-privacy/fhevm-sdk';
 import { useEffect, useState } from 'react';
 
 export default function StatusBar() {
-  const { client, isInitialized } = useFHEVM();
-  const [account, setAccount] = useState<string>('');
+  const { isReady } = useFhevm();
+  const { address, isConnected } = useWallet();
   const [network, setNetwork] = useState<string>('');
 
   useEffect(() => {
-    if (isInitialized && client) {
-      const loadInfo = async () => {
-        const signer = client.getSigner();
-        if (signer) {
-          const address = await signer.getAddress();
-          setAccount(address);
-        }
-
-        const provider = client.getProvider();
-        if (provider) {
-          const network = await provider.getNetwork();
-          setNetwork(network.name);
+    if (isReady && isConnected) {
+      const loadNetwork = async () => {
+        if (typeof window !== 'undefined' && window.ethereum) {
+          const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+          setNetwork(chainId === '0xaa36a7' ? 'Sepolia' : 'Unknown');
         }
       };
-      loadInfo();
+      loadNetwork();
     }
-  }, [isInitialized, client]);
+  }, [isReady, isConnected]);
 
-  if (!isInitialized) return null;
+  if (!isReady) return null;
 
   return (
     <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm border-b border-white/10">

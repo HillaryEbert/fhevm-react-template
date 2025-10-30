@@ -1,6 +1,6 @@
 'use client';
 
-import { useFHEVM, useContract } from '@fhevm/sdk/react';
+import { useFhevm, useContract, useEncrypt } from '@quantum-privacy/fhevm-sdk';
 import { useState, useEffect } from 'react';
 
 // Replace with your deployed contract address
@@ -18,8 +18,9 @@ const CONTRACT_ABI = [
 ];
 
 export default function ContractInteraction() {
-  const { encrypt64, isInitialized } = useFHEVM();
-  const { contract, call, send, listen, isReady } = useContract({
+  const { isReady: fhevmReady } = useFhevm();
+  const { encrypt } = useEncrypt();
+  const { call, send } = useContract({
     address: CONTRACT_ADDRESS,
     abi: CONTRACT_ABI,
   });

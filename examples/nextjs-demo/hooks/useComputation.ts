@@ -6,7 +6,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 
 interface ComputationState {
   isComputing: boolean;
@@ -17,7 +17,7 @@ interface ComputationState {
 type ComputationOperation = 'add' | 'subtract' | 'multiply';
 
 export function useComputation() {
-  const { isInitialized } = useFHEVM();
+  const { isInitialized } = useFhevm();
   const [state, setState] = useState<ComputationState>({
     isComputing: false,
     error: null,

@@ -5,12 +5,12 @@
 
 'use client';
 
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import { useState, useCallback } from 'react';
 import { FHEType } from '../lib/fhe/types';
 
 export function useFHE() {
-  const fhevm = useFHEVM();
+  const fhevm = useFhevm();
   const [isProcessing, setIsProcessing] = useState(false);
   const [lastError, setLastError] = useState<Error | null>(null);
 

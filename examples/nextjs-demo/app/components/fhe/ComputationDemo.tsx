@@ -6,13 +6,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import Card from '../ui/Card';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 
 export default function ComputationDemo() {
-  const { encrypt64, isInitialized } = useFHEVM();
+  const { encrypt64, isInitialized } = useFhevm();
   const [value1, setValue1] = useState('');
   const [value2, setValue2] = useState('');
   const [operation, setOperation] = useState<'add' | 'subtract' | 'multiply'>('add');

@@ -6,13 +6,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import Card from '../ui/Card';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 
 export default function BankingExample() {
-  const { encrypt64, isInitialized } = useFHEVM();
+  const { encrypt64, isInitialized } = useFhevm();
   const [balance, setBalance] = useState('1000');
   const [amount, setAmount] = useState('');
   const [operation, setOperation] = useState<'deposit' | 'withdraw'>('deposit');

@@ -1,18 +1,16 @@
 'use client';
 
-import { FHEVMProvider } from '@fhevm/sdk/react';
+import { FhevmProvider } from '@quantum-privacy/fhevm-sdk';
 import { ReactNode } from 'react';
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <FHEVMProvider
+    <FhevmProvider
       config={{
         chainId: 11155111,
-        network: 'sepolia',
-        autoInit: true,
       }}
     >
       {children}
-    </FHEVMProvider>
+    </FhevmProvider>
   );
 }

@@ -6,7 +6,7 @@
 
 'use client';
 
-import { FHEVMProvider } from '@fhevm/sdk/react';
+import { FhevmProvider } from '@quantum-privacy/fhevm-sdk';
 import { ReactNode } from 'react';
 
 interface FHEProviderProps {
@@ -23,7 +23,7 @@ export default function FHEProvider({
   autoInit = true,
 }: FHEProviderProps) {
   return (
-    <FHEVMProvider
+    <FhevmProvider
       config={{
         chainId,
         network,
@@ -31,6 +31,6 @@ export default function FHEProvider({
       }}
     >
       {children}
-    </FHEVMProvider>
+    </FhevmProvider>
   );
 }

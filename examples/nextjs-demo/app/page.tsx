@@ -1,13 +1,13 @@
 'use client';
 
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import { useState } from 'react';
 import EncryptionDemo from './components/EncryptionDemo';
 import ContractInteraction from './components/ContractInteraction';
 import StatusBar from './components/StatusBar';
 
 export default function Home() {
-  const { isInitialized, isInitializing, error, init } = useFHEVM();
+  const { isReady, error } = useFhevm();
   const [activeTab, setActiveTab] = useState<'encrypt' | 'contract'>('encrypt');
 
   return (
@@ -45,36 +45,20 @@ export default function Home() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Initialization Status */}
-        {!isInitialized && (
+        {!isReady && (
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
             <div className="text-center">
-              {isInitializing ? (
-                <>
-                  <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    Initializing FHEVM...
-                  </h2>
-                  <p className="text-gray-300">
-                    Connecting to wallet and loading FHE public key
-                  </p>
-                </>
-              ) : (
-                <>
-                  <h2 className="text-2xl font-bold text-white mb-4">
-                    Ready to Start
-                  </h2>
-                  <button
-                    onClick={init}
-                    className="px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
-                  >
-                    Connect Wallet & Initialize
-                  </button>
-                </>
-              )}
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
+              <h2 className="text-2xl font-bold text-white mb-2">
+                Initializing FHEVM...
+              </h2>
+              <p className="text-gray-300">
+                Loading FHE public key
+              </p>
               {error && (
                 <div className="mt-4 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
                   <p className="text-red-200">
-                    ❌ Error: {error.message}
+                    ❌ Error: {error}
                   </p>
                 </div>
               )}
@@ -83,7 +67,7 @@ export default function Home() {
         )}
 
         {/* Tabs */}
-        {isInitialized && (
+        {isReady && (
           <>
             <div className="flex gap-4 mb-8">
               <button
@@ -124,7 +108,7 @@ export default function Home() {
               React Hooks
             </h3>
             <p className="text-gray-300">
-              Simple and intuitive hooks like useFHEVM and useContract for easy integration
+              Simple and intuitive hooks like useFhevm and useContract for easy integration
             </p>
           </div>
           <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">

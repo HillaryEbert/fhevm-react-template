@@ -6,7 +6,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import Card from '../ui/Card';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
@@ -20,7 +20,7 @@ interface MedicalRecord {
 }
 
 export default function MedicalExample() {
-  const { encrypt32, encryptBool, isInitialized } = useFHEVM();
+  const { encrypt32, encryptBool, isInitialized } = useFhevm();
   const [recordType, setRecordType] = useState<'heartRate' | 'bloodPressure' | 'temperature'>('heartRate');
   const [value, setValue] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);

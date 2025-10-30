@@ -6,7 +6,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import { FHEType } from '../lib/fhe/types';
 
 interface EncryptionState {
@@ -16,7 +16,7 @@ interface EncryptionState {
 }
 
 export function useEncryption() {
-  const { isInitialized, ...fhevm } = useFHEVM();
+  const { isInitialized, ...fhevm } = useFhevm();
   const [state, setState] = useState<EncryptionState>({
     isEncrypting: false,
     error: null,

@@ -6,12 +6,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useFHEVM } from '@fhevm/sdk/react';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 
 export default function KeyManager() {
-  const { isInitialized, client } = useFHEVM();
+  const { isInitialized, client } = useFhevm();
   const [keyInfo, setKeyInfo] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
