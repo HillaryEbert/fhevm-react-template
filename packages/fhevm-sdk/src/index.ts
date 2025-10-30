@@ -8,6 +8,12 @@
 // Export types
 export * from './types';
 
+// Export core
+export * from './core';
+
+// Export adapters
+export * from './adapters';
+
 // Export providers
 export { FhevmProvider, useFhevmContext, FhevmContext } from './providers/FhevmProvider';
 
@@ -28,6 +34,15 @@ export {
   hexToDecimal,
   decimalToHex,
 } from './utils/encryption';
+
+export {
+  userDecrypt,
+  publicDecrypt,
+  requestDecryption,
+  batchUserDecrypt,
+  canDecrypt,
+  parseDecryptedValue,
+} from './utils/decryption';
 
 // Export version
 export const VERSION = '1.0.0';

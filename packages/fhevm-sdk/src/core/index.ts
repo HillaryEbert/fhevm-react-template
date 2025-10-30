@@ -1,6 +1,5 @@
-export * from "../internal/fhevm";
-export * from "../internal/RelayerSDKLoader";
-export * from "../internal/PublicKeyStorage";
-export * from "../internal/fhevmTypes";
-export * from "../internal/constants";
+/**
+ * Core module exports
+ */
 
+export { FhevmCore, createFhevmCore } from './fhevm';

@@ -118,7 +118,48 @@ function EncryptInput() {
 }
 ```
 
-#### 4. Contract Interaction
+#### 4. Decryption
+
+Decrypt encrypted data with user permission:
+
+```tsx
+import { userDecrypt, publicDecrypt } from '@quantum-privacy/fhevm-sdk';
+import { useFhevm } from '@quantum-privacy/fhevm-sdk';
+import { ethers } from 'ethers';
+
+function DecryptData() {
+  const { fhevmInstance } = useFhevm();
+
+  const handleUserDecrypt = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    // User decryption requires EIP-712 signature
+    const decrypted = await userDecrypt(
+      fhevmInstance,
+      encryptedValue,
+      contractAddress,
+      signer
+    );
+    console.log('Decrypted value:', decrypted);
+  };
+
+  const handlePublicDecrypt = async () => {
+    // Public decryption (no signature required)
+    const decrypted = await publicDecrypt(fhevmInstance, encryptedValue);
+    console.log('Decrypted value:', decrypted);
+  };
+
+  return (
+    <>
+      <button onClick={handleUserDecrypt}>Decrypt (User)</button>
+      <button onClick={handlePublicDecrypt}>Decrypt (Public)</button>
+    </>
+  );
+}
+```
+
+#### 5. Contract Interaction
 
 Interact with smart contracts:
 
@@ -217,6 +258,8 @@ const {
 
 ### Utilities
 
+#### General Utilities
+
 ```tsx
 import {
   formatAddress,      // Format address for display
@@ -226,6 +269,43 @@ import {
   getFHEPublicKey,    // Get FHE public key for chain
   getGatewayUrl,      // Get gateway URL for chain
 } from '@quantum-privacy/fhevm-sdk';
+```
+
+#### Decryption Utilities
+
+```tsx
+import {
+  userDecrypt,        // Decrypt with user EIP-712 signature
+  publicDecrypt,      // Decrypt public data (no signature)
+  batchUserDecrypt,   // Decrypt multiple values at once
+  requestDecryption,  // Request decryption from KMS Gateway
+  canDecrypt,         // Check if value can be decrypted
+  parseDecryptedValue // Parse decrypted value to specific type
+} from '@quantum-privacy/fhevm-sdk';
+
+// User decryption with EIP-712 signature
+const decrypted = await userDecrypt(
+  fhevmInstance,
+  encryptedValue,
+  contractAddress,
+  signer
+);
+
+// Public decryption
+const publicValue = await publicDecrypt(fhevmInstance, encryptedValue);
+
+// Batch decrypt multiple values
+const decryptedArray = await batchUserDecrypt(
+  fhevmInstance,
+  [encryptedValue1, encryptedValue2],
+  contractAddress,
+  signer
+);
+
+// Parse decrypted value to specific type
+const parsedValue = parseDecryptedValue(decrypted, 'uint32'); // Returns number
+const parsedBool = parseDecryptedValue(decrypted, 'bool');    // Returns boolean
+const parsedAddr = parseDecryptedValue(decrypted, 'address'); // Returns string
 ```
 
 ## 🌐 Framework-Specific Examples
