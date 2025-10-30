@@ -102,9 +102,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
+import { useFhevmVue, useWalletVue } from '@quantum-privacy/fhevm-sdk';
 import { ethers } from 'ethers';
-import { createFhevmInstance } from '@quantum-privacy/fhevm-sdk';
 
 const CONTRACT_ADDRESS = '0xF7d1BFA0fa5b68099F5Cc85856515F7b290c92e2';
 const CONTRACT_ABI = [
@@ -114,21 +114,16 @@ const CONTRACT_ABI = [
   'function getJobInfo(uint256 jobId) external view returns (address, uint8, bool, bool, uint256, uint256, uint256)',
 ];
 
-// State
-const isReady = ref(false);
-const isConnected = ref(false);
+// Use SDK composables
+const { isReady } = useFhevmVue({ chainId: 11155111 });
+const { address, balance, isConnected, connect, disconnect, signer } = useWalletVue();
+
+// Local state
 const isLoading = ref(false);
-const address = ref('');
-const balance = ref('0.0');
 const inputValue = ref(42);
 const selectedAlgorithm = ref('0');
 const queryJobId = ref(0);
 const statusMessage = ref('');
-
-let provider: ethers.providers.Web3Provider | null = null;
-let signer: ethers.Signer | null = null;
-let contract: ethers.Contract | null = null;
-let fhevmInstance: any = null;
 
 // Computed
 const statusClass = computed(() => {
@@ -138,28 +133,14 @@ const statusClass = computed(() => {
 });
 
 // Methods
-const formatAddress = (addr: string) => {
+const formatAddress = (addr: string | null) => {
   if (!addr) return '';
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 };
 
 const handleConnect = async () => {
   try {
-    if (!window.ethereum) {
-      statusMessage.value = '❌ Please install MetaMask';
-      return;
-    }
-
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send('eth_requestAccounts', []);
-    signer = provider.getSigner();
-    address.value = await signer.getAddress();
-
-    const bal = await provider.getBalance(address.value);
-    balance.value = ethers.utils.formatEther(bal);
-
-    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
-    isConnected.value = true;
+    await connect();
     statusMessage.value = '✅ Wallet connected!';
   } catch (error) {
     statusMessage.value = '❌ Error: ' + (error as Error).message;
@@ -167,21 +148,22 @@ const handleConnect = async () => {
 };
 
 const handleDisconnect = () => {
-  provider = null;
-  signer = null;
-  contract = null;
-  address.value = '';
-  balance.value = '0.0';
-  isConnected.value = false;
+  disconnect();
   statusMessage.value = 'Wallet disconnected';
 };
 
-const handleInitState = async () => {
-  if (!contract) return;
+const getContract = () => {
+  if (!signer.value) {
+    throw new Error('Wallet not connected');
+  }
+  return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer.value);
+};
 
+const handleInitState = async () => {
   try {
     isLoading.value = true;
     statusMessage.value = 'Initializing quantum state...';
+    const contract = getContract();
     const amplitudes = [255, 0, 0, 0, 0, 0, 0, 0];
     const tx = await contract.initializeQuantumState(amplitudes, 3);
     await tx.wait();
@@ -194,11 +176,10 @@ const handleInitState = async () => {
 };
 
 const handleSubmitJob = async () => {
-  if (!contract) return;
-
   try {
     isLoading.value = true;
     statusMessage.value = 'Submitting quantum job...';
+    const contract = getContract();
     const tx = await contract.submitQuantumJob(
       inputValue.value,
       parseInt(selectedAlgorithm.value)
@@ -214,11 +195,10 @@ const handleSubmitJob = async () => {
 };
 
 const handleQueryJob = async () => {
-  if (!contract) return;
-
   try {
     isLoading.value = true;
     statusMessage.value = 'Querying job...';
+    const contract = getContract();
     const info = await contract.getJobInfo(queryJobId.value);
     statusMessage.value = `✅ Job Info: Completed=${info[2]}, Verified=${info[3]}`;
     console.log('Job Info:', info);
@@ -228,17 +208,6 @@ const handleQueryJob = async () => {
     isLoading.value = false;
   }
 };
-
-// Lifecycle
-onMounted(async () => {
-  try {
-    fhevmInstance = await createFhevmInstance({ chainId: 11155111 });
-    isReady.value = true;
-  } catch (error) {
-    console.error('Failed to initialize FHEVM:', error);
-    statusMessage.value = '❌ Failed to initialize FHEVM';
-  }
-});
 </script>
 
 <style scoped>
